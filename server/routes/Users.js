@@ -2,7 +2,7 @@ const express = require('express')
 const router = require('express').Router()
 const bcrypt = require('bcrypt')
 const { Users } = require('../models')
-const { createToken } = require('../JWT')
+const { createToken } = require('../middleware/JWT')
 
 router.get("/", async (req, res) => {
 
@@ -22,7 +22,7 @@ router.post('/register', async (req, res) => { //insert users into db
             }
         })
     })
-})
+});
 
 router.post('/login', async (req, res) => {
     const username = req.body.username;
@@ -38,7 +38,7 @@ router.post('/login', async (req, res) => {
                 res.status(400).json({ error: "Username + Password combo does not exist" })
             } else {
                 const accessToken = createToken(user, 'jwtsecretplschange') //sign takes data that you want to keep track of, second param is a secret hashed password that protects token
-                //res.cookie("access-token", accessToken, { maxAge: 36000000 }) //res.cookie params take name|data|{option: val} -- http://expressjs.com/en/api.html
+                res.cookie("access-token", accessToken, { maxAge: 36000000 }) //res.cookie params take name|data|{option: val} -- http://expressjs.com/en/api.html
             }
         })
     }

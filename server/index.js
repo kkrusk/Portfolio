@@ -1,9 +1,7 @@
 const express = require('express') //npm install express
 const app = express()
-const cookieParser = require('cookie-parser')
 const cors = require('cors')
-const { response } = require('express')
-const mysql = require('mysql') //npm install mysql
+const cookieParser = require('cookie-parser')
 
 app.use(cors()); //allows request from front to back end -- npm install cors
 app.use(express.json());
