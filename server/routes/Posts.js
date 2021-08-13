@@ -13,7 +13,7 @@ router.get('/byId/:id', async (req, res) => {
     res.json(post)
 })
 
-router.post('/', async (req, res) => { //async post request -- await waits for insert before continuing
+router.post('/', async (req, res) => { //async post request -- await waits for insert before continuing || 2nd parameter validateToken is passed in to let middleware handle request before posting
     const post = req.body;
     await Posts.create(post)
     res.json(post)

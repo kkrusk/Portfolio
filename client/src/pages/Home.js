@@ -19,7 +19,13 @@ function Home() {
       {listOfPosts.map((value, key) => {
         return (
           // must use ` ` in order to pass in JS value in argument
-          <div className='post' key={key} onClick={() => { history.push(`/posts/byId/${value.id}`) }}>
+          <div
+            className='post'
+            key={key}
+            onClick={() => {
+              history.push(`/post/${value.id}`)
+            }}>
+
             <div className='title'> {value.title} </div>
             <div className='post_text'> {value.post_text} </div>
             <div className='username'> {value.username} </div>

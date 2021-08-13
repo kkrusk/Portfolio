@@ -9,22 +9,67 @@ function Post() {
     const [newComment, setNewComment] = useState("");
 
     useEffect(() => { //useEffect hook renders after each change
-        axios.get(`http://localhost:3001/posts/byId/${id}`).then((response) => {
-            setPostObject(response.data)
-        })
+        axios
+            .get(`http://localhost:3001/posts/byId/${id}`)
+            .then((response) => {
+                setPostObject(response.data)
+            })
 
-        axios.get(`http://localhost:3001/comments/${id}`).then((response) => {
-            setComments(response.data)
-        })
+        axios
+            .get(`http://localhost:3001/comments/${id}`)
+            .then((response) => {
+                setComments(response.data)
+            })
     }, [id]); //adding [] cause 'React Hook useEffect has a missing dependency: 'id'. Either include it or remove the dependency array  react-hooks/exhaustive-deps' warning BUT stops infinite loop
 
+    //alert(sessionStorage.getItem('accessToken'));
+
+    // const addComment = () => {
+    //     axios
+    //         .post(
+    //             'http://localhost:3001/comments',
+    //             {
+    //                 comment_body: newComment,
+    //                 PostId: id,
+    //             },
+    //             {
+    //                 headers: { //You can pass parameters as a 2nd object in post in order to access web tokens from session storage in the URL header
+    //                     accessToken: sessionStorage.getItem("accessToken"),
+    //                 },
+    //             }
+    //         )
+    //         .then((response) => {
+    //             const commentToAdd = { comment_body: newComment };
+    //             setComments([...comments, commentToAdd]); //...comments is array destructuring and we're adding comment to add to the comment array
+    //             setNewComment('');
+    //         })
+    // }
+
+
     const addComment = () => {
-        axios.post('http://localhost:3001/comments', { comment_body: newComment, PostId: id }).then((response) => {
-            const commentToAdd = { comment_body: newComment };
-            setComments([...comments, commentToAdd]); //...comments is array destructuring and we're adding comment to add to the comment array
-            setNewComment('');
-        })
-    }
+        axios
+            .post(
+                "http://localhost:3001/comments",
+                {
+                    comment_body: newComment,
+                    PostId: id,
+                },
+                {
+                    headers: {
+                        accessToken: sessionStorage.getItem("accessToken"),
+                    },
+                }
+            )
+            .then((response) => {
+                if (response.data.error) {
+                    console.log(response.data.error);
+                } else {
+                    const commentToAdd = { comment_body: newComment };
+                    setComments([...comments, commentToAdd]);
+                    setNewComment("");
+                }
+            });
+    };
 
     return (
         <div className='postPage' id='individual'>

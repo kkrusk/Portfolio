@@ -46,7 +46,7 @@ function App() {
           </div>
         </section> */}
 
-        <nav class="navbar navbar-default">
+        {/* <nav class="navbar navbar-default">
           <div class="container-fluid">
             <div class="navbar-header">
               <a class="navbar-brand" href="/">
@@ -58,13 +58,20 @@ function App() {
               </a>
             </div>
           </div>
-        </nav>
+        </nav> */}
+
+        <div className="navbar navbar-default">
+          <Link to="/"> Home </Link>
+          <Link to="/create_post"> Create Post </Link>
+          <Link to="/register"> Register </Link>
+          <Link to="/login"> Login </Link>
+        </div>
 
         <Switch>
           {/* exact allows only one component to route at a time */}
           <Route path='/' exact component={Home} />
           <Route path='/create_post' exact component={CreatePost} />
-          <Route path='/posts/byId/:id' exact component={Post} />
+          <Route path='/post/:id' exact component={Post} />
           <Route path='/login' exact component={Login} />
           <Route path='/register' exact component={Register} />
         </Switch>
