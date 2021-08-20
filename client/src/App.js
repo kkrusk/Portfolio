@@ -1,70 +1,68 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import CreatePost from './pages/CreatePost'
 import Post from './pages/Post'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import { Nav, Navbar, Container } from 'react-bootstrap'
+import Clock from 'react-live-clock'
 
 function App() {
-
   return (
+
     <div className="App">
       <Router>
-        {/* 
-        <nav class="navbar">
-          <img className='brandIcon' alt="Brand" src="https://cdn1.iconfinder.com/data/icons/andriod-app-logo/32/icon_k-512.png" />
-          <ul>
-            <li><a class="active" href="#home" title="Home">Home</a></li>
-            <li><a href="#portfolio" title="Portfolio">Portfolio</a></li>
-            <li><a href="#about" title="About">About</a></li>
-            <li><a href="#contact" title="Contact">Contact</a></li>
-          </ul>
-        </nav>
 
-        <section id="home" class="page">
-          <div class="container">
-            <h2>Home</h2>
-          </div>
-        </section>
+        <Navbar className='sticky-nav' bg="dark" variant="dark">
 
-        <section id="portfolio" class="page">
-          <div class="container">
-            <h2>Portfolio</h2>
-          </div>
-        </section>
+          <Container>
+            <Navbar.Brand href="/">
+              <img
+                alt=""
+                src="https://image.flaticon.com/icons/png/512/32/32030.png"
+                width="30"
+                height="30"
+                className="d-inline-block align-top"
+              />
+            </Navbar.Brand>
+            <Nav className="me-auto">
+              <Nav.Link href="/">Home</Nav.Link>
+              <Nav.Link href="/create_post">Create Post</Nav.Link>
+              <Nav.Link href="/register">Register</Nav.Link>
+              <Nav.Link href="/login">Login</Nav.Link>
+            </Nav>
+          </Container>
+        </Navbar>
 
-        <section id="about" class="page">
-          <div class="container">
-            <h2>About</h2>
-          </div>
-        </section>
 
-        <section id="contact" class="page">
-          <div class="container">
-            <h2>Contact</h2>
-          </div>
-        </section> */}
 
-        {/* <nav class="navbar navbar-default">
-          <div class="container-fluid">
-            <div class="navbar-header">
-              <a class="navbar-brand" href="/">
-                <img className='brandIcon' alt="Brand" src="https://cdn1.iconfinder.com/data/icons/andriod-app-logo/32/icon_k-512.png" />
-                <Link to="/"> Home </Link>
-                <Link to="/create_post"> Create Post </Link>
-                <Link to="/register"> Register </Link>
-                <Link to="/login"> Login </Link>
-              </a>
-            </div>
-          </div>
-        </nav> */}
+        <div className='footer'>
 
-        <div className="navbar navbar-default">
-          <Link to="/"> Home </Link>
-          <Link to="/create_post"> Create Post </Link>
-          <Link to="/register"> Register </Link>
-          <Link to="/login"> Login </Link>
+          <a href="https://www.linkedin.com/in/kyle-kruskamp-441645148">
+            <img
+              loading="lazy"
+              className="socialIcon"
+              alt=''
+              src="https://www.iconpacks.net/icons/1/free-linkedin-icon-112-thumb.png"
+              width="30"
+              height="30">
+            </img>
+          </a>
+
+          <a href="https://www.instagram.com/kkrusk">
+            <img
+              loading="lazy"
+              className="socialIcon"
+              alt=''
+              src="https://blog-assets.hootsuite.com/wp-content/uploads/2018/09/glyph-logo_May2016-150x150.png"
+              width="30"
+              height="30">
+            </img>
+          </a>
+
+          <Clock format={'HH:mm:ss'} ticking={true} timezone={'US/Pacific'} style={{ color: 'black' }} />
+
         </div>
 
         <Switch>
@@ -76,9 +74,10 @@ function App() {
           <Route path='/register' exact component={Register} />
         </Switch>
       </Router>
-    </div>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" />
+    </div >
   )
 }
 
-<script src="src/js/scrollspy.js"></script>
 export default App;

@@ -3,6 +3,8 @@ import React from 'react'
 import axios from 'axios';
 import { useState, useEffect } from "react";
 import { useHistory } from 'react-router-dom'
+import { Carousel } from 'react-bootstrap'
+
 
 function Home() {
   let history = useHistory();
@@ -16,22 +18,38 @@ function Home() {
 
   return (
     <div>
-      {listOfPosts.map((value, key) => {
-        return (
-          // must use ` ` in order to pass in JS value in argument
-          <div
-            className='post'
-            key={key}
-            onClick={() => {
-              history.push(`/post/${value.id}`)
-            }}>
 
-            <div className='title'> {value.title} </div>
-            <div className='post_text'> {value.post_text} </div>
-            <div className='username'> {value.username} </div>
-          </div>
-        );
-      })}
+      <Carousel fade='true' indicators='' controls='' pause='hover'>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src="https://picsum.photos/2000/800?random=1"
+            alt="First slide"
+          />
+          <Carousel.Caption>
+            <h3>First slide label</h3>
+            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+          </Carousel.Caption>
+        </Carousel.Item>
+
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src="https://picsum.photos/2000/800?random=2"
+            alt="Second slide"
+          />
+        </Carousel.Item>
+
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src="https://picsum.photos/2000/800?random=3"
+            alt="Third slide"
+          />
+        </Carousel.Item>
+
+      </Carousel>
+
     </div>
   )
 }

@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import { useHistory } from "react-router-dom";
+//import { useHistory } from "react-router-dom";
 
 function Login() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
-    let history = useHistory();
+    //let history = useHistory();
 
     const login = () => {
         const data = { username: username, password: password }
@@ -19,16 +19,18 @@ function Login() {
 
     return (
         <div>
-            Username: <input type='text' onChange={(event) => {
-                setUsername(event.target.value);
-            }} />
+            <div className='container'>
+                <input className='loginInput' placeholder='Username' type='text' onChange={(event) => {
+                    setUsername(event.target.value);
+                }} />
 
-            Password: <input type='password' onChange={(event) => {
-                setPassword(event.target.value);
-            }} />
+                <input className='loginInput' placeholder='Password' type='password' onChange={(event) => {
+                    setPassword(event.target.value);
+                }} />
 
-            <button onClick={login}> Login </button>
-        </div>
+                <button onClick={login}> Login </button>
+            </div>
+        </div >
     )
 }
 

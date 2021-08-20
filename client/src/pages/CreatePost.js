@@ -34,29 +34,26 @@ function CreatePost() {
     return (
         <div className='createPostPage'>
             <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-                <Form className='formContainer'>
+                <Form className='createPostFormContainer'>
 
-                    <label>Title:</label>
                     <ErrorMessage name='title' component='span' />
                     <Field
                         autoComplete='off'
-                        id='inputCreatePost'
+                        className='createPostInput'
                         name='title'
                         placeholder="Ex. Title..." />
 
-                    <label>Text:</label>
                     <ErrorMessage name='post_text' component='span' />
                     <Field
                         autoComplete='off'
-                        id='inputCreatePost'
+                        className='createPostInput'
                         name='post_text'
                         placeholder="Ex. Text..." />
 
-                    <label>Username:</label>
                     <ErrorMessage name='username' component='span' />
                     <Field
                         autoComplete='off'
-                        id='inputCreatePost'
+                        className='createPostInput'
                         name='username'
                         placeholder="Ex. Username..." />
 
