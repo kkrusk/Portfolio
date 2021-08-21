@@ -6,16 +6,14 @@ import Post from './pages/Post'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import { Nav, Navbar, Container } from 'react-bootstrap'
-import Clock from 'react-live-clock'
+
 
 function App() {
   return (
-
     <div className="App">
       <Router>
 
         <Navbar className='sticky-nav' bg="dark" variant="dark">
-
           <Container>
             <Navbar.Brand href="/">
               <img
@@ -35,10 +33,7 @@ function App() {
           </Container>
         </Navbar>
 
-
-
         <div className='footer'>
-
           <a href="https://www.linkedin.com/in/kyle-kruskamp-441645148">
             <img
               loading="lazy"
@@ -60,9 +55,6 @@ function App() {
               height="30">
             </img>
           </a>
-
-          <Clock format={'HH:mm:ss'} ticking={true} timezone={'US/Pacific'} style={{ color: 'black' }} />
-
         </div>
 
         <Switch>
@@ -76,6 +68,8 @@ function App() {
       </Router>
 
       <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js" />
+
+
     </div >
   )
 }

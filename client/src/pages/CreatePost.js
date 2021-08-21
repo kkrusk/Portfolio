@@ -43,6 +43,7 @@ function CreatePost() {
                         name='title'
                         placeholder="Ex. Title..." />
 
+
                     <ErrorMessage name='post_text' component='span' />
                     <Field
                         autoComplete='off'
