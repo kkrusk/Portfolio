@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import axios from 'axios'
+import app from '../config/axiosConfig'
 
 function Post() {
     let { id } = useParams();
@@ -9,45 +9,21 @@ function Post() {
     const [newComment, setNewComment] = useState("");
 
     useEffect(() => { //useEffect hook renders after each change
-        axios
+        app
             .get(`http://localhost:3001/posts/byId/${id}`)
             .then((response) => {
                 setPostObject(response.data)
             })
 
-        axios
+        app
             .get(`http://localhost:3001/comments/${id}`)
             .then((response) => {
                 setComments(response.data)
             })
     }, [id]); //adding [] cause 'React Hook useEffect has a missing dependency: 'id'. Either include it or remove the dependency array  react-hooks/exhaustive-deps' warning BUT stops infinite loop
 
-    //alert(sessionStorage.getItem('accessToken'));
-
-    // const addComment = () => {
-    //     axios
-    //         .post(
-    //             'http://localhost:3001/comments',
-    //             {
-    //                 comment_body: newComment,
-    //                 PostId: id,
-    //             },
-    //             {
-    //                 headers: { //You can pass parameters as a 2nd object in post in order to access web tokens from session storage in the URL header
-    //                     accessToken: sessionStorage.getItem("accessToken"),
-    //                 },
-    //             }
-    //         )
-    //         .then((response) => {
-    //             const commentToAdd = { comment_body: newComment };
-    //             setComments([...comments, commentToAdd]); //...comments is array destructuring and we're adding comment to add to the comment array
-    //             setNewComment('');
-    //         })
-    // }
-
-
     const addComment = () => {
-        axios
+        app
             .post(
                 "http://localhost:3001/comments",
                 {
@@ -56,15 +32,15 @@ function Post() {
                 },
                 {
                     headers: {
-                        accessToken: sessionStorage.getItem("accessToken"),
-                    },
+                        accessToken: localStorage.getItem('accessToken') //Getting local storage set in login POST
+                    }
                 }
             )
             .then((response) => {
                 if (response.data.error) {
                     console.log(response.data.error);
                 } else {
-                    const commentToAdd = { comment_body: newComment };
+                    const commentToAdd = { comment_body: newComment, username: response.data.username };
                     setComments([...comments, commentToAdd]);
                     setNewComment("");
                 }
@@ -92,14 +68,16 @@ function Post() {
                     {comments.map((comment, key) => {
                         return (
                             <div className='comment' key={key}>
-                                {comment.comment_body}
+                                Username: {comment.username}
+                                Post: {comment.comment_body}
+
                             </div>
                         );
                     })}
                 </div>
 
             </div>
-        </div>
+        </div >
     )
 }
 

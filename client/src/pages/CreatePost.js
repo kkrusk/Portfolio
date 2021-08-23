@@ -3,9 +3,18 @@ import { Formik, Form, Field, ErrorMessage } from 'formik' //Formik allows for e
 import * as Yup from 'yup' // Yup is a library that validates forms
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
+import { useState, useEffect } from "react";
+
 
 function CreatePost() {
     let history = useHistory();
+    const [listOfPosts, setListOfPosts] = useState([]);
+
+    useEffect(() => { //useEffect hook renders after each change   
+        axios.get('http://localhost:3001/posts').then((response) => {
+            setListOfPosts(response.data);
+        })
+    }, []); //2nd param of useEffect stops infinite loop (I think by setting it to the value of 2nd param [] on 2nd render?)
 
     const initialValues = {
         title: "",
@@ -27,7 +36,7 @@ function CreatePost() {
 
     const onSubmit = (data) => {
         axios.post('http://localhost:3001/posts', data).then((response) => {
-            history.push('/')
+            history.push('#')
         })
     }
 
@@ -61,6 +70,24 @@ function CreatePost() {
                     <button type='submit'> Create Post </button>
                 </Form>
             </Formik>
+
+            <div>
+                {listOfPosts.map((value, key) => {
+                    return (
+                        <div
+                            key={key}
+                            className="post"
+                            onClick={() => {
+                                history.push(`/post/${value.id}`);
+                            }}
+                        >
+                            <div className="postTitle"> {value.title} </div>
+                            <div className="postBody">{value.post_text}</div>
+                            <div className="postFooter">{value.username}</div>
+                        </div>
+                    );
+                })}
+            </div>
         </div>
     )
 }

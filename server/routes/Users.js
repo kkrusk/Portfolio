@@ -2,10 +2,17 @@ const express = require('express')
 const router = require('express').Router()
 const bcrypt = require('bcrypt')
 const { Users } = require('../models')
-const { createToken } = require('../middleware/JWT')
+const { createToken, validateToken } = require('../middleware/JWT')
+const jwtConfig = require('../config/jwtConfig.json')
 
-router.get("/", async (req, res) => {
+console.log(jwtConfig.tokenHash)
 
+router.get("/", (req, res) => {
+
+});
+
+router.get("/profile", validateToken, (req, res) => {
+    res.json('profile')
 });
 
 router.post('/register', async (req, res) => { //insert users into db
@@ -29,20 +36,21 @@ router.post('/login', async (req, res) => {
     const user = await Users.findOne({ where: { username: username } });
 
     if (!user) {
-        res.json({ error: "User doesn't exist" });
+        return res.json({ error: "User doesn't exist" });
     } else {
         const dbPassword = user.password;
         bcrypt.compare(password, dbPassword).then((match) => {
             if (!match) {
-                res.status(400).json({ error: "Username + Password combo does not exist" })
+                return res.status(400).json({ error: "Username + Password combo does not exist" })
             } else {
-                const accessToken = createToken(user, 'jwtsecretplschange') //sign takes data that you want to keep track of, second param is a secret hashed password that protects token
+                const accessToken = createToken(user, jwtConfig.tokenHashPassword) //second param is a secret hashed password that protects token
                 res.cookie( //res.cookie params take name|data|{option: val} -- http://expressjs.com/en/api.html
-                    "access-token",
+                    jwtConfig.tokenName, //cookie is called k-portfolio-user in browser
                     accessToken,
+                    withCredentials = true,
                     {
                         maxAge: 36000000,
-                        httpOnly: true
+                        //httpOnly: false
                     }
                 );
 

@@ -1,9 +1,14 @@
 import React from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik' //Formik allows for easy creation of forms and fields in the front end and removes the requirement to set states in React
 import * as Yup from 'yup' // Yup is a library that validates forms
-import axios from "axios"
+import app from '../config/axiosConfig'
+import { useHistory } from 'react-router-dom'
+
+
 
 function Register() {
+    let history = useHistory();
+
     const initialValues = {
         username: "",
         password: "",
@@ -22,8 +27,8 @@ function Register() {
     })
 
     const onSubmit = (data) => {
-        axios.post('http://localhost:3001/auth/register', data).then((response) => {
-            console.log(data)
+        app.post('http://localhost:3001/auth/register', data).then((response) => {
+            history.push('/')
         })
     }
 

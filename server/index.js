@@ -3,7 +3,12 @@ const app = express()
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
 
-app.use(cors()); //allows request from front to back end -- npm install cors
+const corsConfig = {
+    credentials: true,
+    origin: true,
+};
+
+app.use(cors(corsConfig)); //allows request from front to back end -- npm install cors
 app.use(express.json());
 app.use(cookieParser())
 
