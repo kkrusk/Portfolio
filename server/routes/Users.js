@@ -45,9 +45,8 @@ router.post('/login', async (req, res) => {
             } else {
                 const accessToken = createToken(user, jwtConfig.tokenHashPassword) //second param is a secret hashed password that protects token
                 res.cookie( //res.cookie params take name|data|{option: val} -- http://expressjs.com/en/api.html
-                    jwtConfig.tokenName, //cookie is called k-portfolio-user in browser
+                    jwtConfig.cookieName, //cookie is called k-portfolio-user in browser
                     accessToken,
-                    withCredentials = true,
                     {
                         maxAge: 36000000,
                         //httpOnly: false

@@ -7,10 +7,10 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import { Nav, Navbar, Container } from 'react-bootstrap'
 import Cookies from 'js-cookie';
-
+import jwtConfig from './config/jwtConfig';
 
 function App() {
-  const hasCookie = Cookies.get('k-portfolio-user')
+  const hasCookie = Cookies.get(jwtConfig.cookieName)
 
   return (
     <div className="App">
@@ -41,8 +41,6 @@ function App() {
           </Container>
         </Navbar>
 
-
-
         <div className='footer'>
           <a href="https://www.linkedin.com/in/kyle-kruskamp-441645148">
             <img
@@ -54,7 +52,20 @@ function App() {
               height="30">
             </img>
           </a>
+
+          <a href="https://github.com/kkrusk">
+            <img
+              loading="lazy"
+              className="socialIcon"
+              alt=''
+              src="https://www.macobserver.com/wp-content/uploads/2019/05/workfeatured-GitHub-2.png"
+              width="57"
+              height="30">
+            </img>
+          </a>
         </div>
+
+
 
         <Switch>
           {/* exact allows only one component to route at a time */}

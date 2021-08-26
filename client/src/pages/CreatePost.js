@@ -4,6 +4,7 @@ import * as Yup from 'yup' // Yup is a library that validates forms
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import { useState, useEffect } from "react";
+import { Button } from '@material-ui/core';
 
 
 function CreatePost() {
@@ -36,7 +37,7 @@ function CreatePost() {
 
     const onSubmit = (data) => {
         axios.post('http://localhost:3001/posts', data).then((response) => {
-            history.push('#')
+            setListOfPosts(listOfPosts => [...listOfPosts, response.data]);
         })
     }
 
@@ -48,7 +49,7 @@ function CreatePost() {
                     <ErrorMessage name='title' component='span' />
                     <Field
                         autoComplete='off'
-                        className='createPostInput'
+                        className='createPostTitle'
                         name='title'
                         placeholder="Ex. Title..." />
 
@@ -56,18 +57,23 @@ function CreatePost() {
                     <ErrorMessage name='post_text' component='span' />
                     <Field
                         autoComplete='off'
-                        className='createPostInput'
+                        className='createPostText'
                         name='post_text'
                         placeholder="Ex. Text..." />
 
                     <ErrorMessage name='username' component='span' />
                     <Field
                         autoComplete='off'
-                        className='createPostInput'
+                        className='createPostUsername'
                         name='username'
                         placeholder="Ex. Username..." />
 
-                    <button type='submit'> Create Post </button>
+
+                    <Button type='submit' variant="contained" color="primary">
+                        Create Post
+                    </Button>
+
+
                 </Form>
             </Formik>
 
@@ -83,12 +89,12 @@ function CreatePost() {
                         >
                             <div className="postTitle"> {value.title} </div>
                             <div className="postBody">{value.post_text}</div>
-                            <div className="postFooter">{value.username}</div>
+                            <div className="postUsername">{value.username}</div>
                         </div>
                     );
                 })}
             </div>
-        </div>
+        </div >
     )
 }
 
